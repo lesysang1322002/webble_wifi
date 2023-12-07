@@ -54,7 +54,9 @@
     </nav>
     <div class="custom-border container">
         <h4 class="text-center mt-2"><strong>CONFIG WIFI</strong></h4>
+        <h6 class="text-center mt-2">Service UUID: 0000181f-0000-1000-8000-00805f9b34fb</h6>
         <hr>
+        <h6 class="text-center mt-2">Characteristic UUID: 00002a18-0000-1000-8000-00805f9b34fb</h6>
         <div class="container">
             <div class="d-flex justify-content-center">
             <input type="text" id="input1" placeholder="Enter SSID">
@@ -98,8 +100,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         var deviceName = 'ConfigWifi';
-        var bleService = 'battery_service';
-        var bleCharacteristic = 'battery_level';
+        var bleService = "0000181f-0000-1000-8000-00805f9b34fb";
+        var bleCharacteristic = "00002a18-0000-1000-8000-00805f9b34fb";
         var gattCharacteristic;
         var bluetoothDeviceDetected;
         function isWebBluetoothEnabled() {
@@ -118,7 +120,7 @@
             filters: [{
                 name: deviceName
             }],
-            optionalServices: ['battery_service'] 
+            optionalServices: ["0000181f-0000-1000-8000-00805f9b34fb"] 
             })         
         .then(device => {
             dev=device;
@@ -195,22 +197,12 @@
         for (i; i < dataArray.length; i++) {
             valueString += String.fromCharCode(dataArray[i]);
         }
-        if(kytu==1){
-            valueString=valueString+"*C";
-            logValue1(valueString);
-        }
-        else if(kytu==2){
-            valueString=valueString+"%";
-            logValue2(valueString);
-        }
-        else{
         var now = new Date();
         console.log(' -> ' + now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds() + valueString);
         $('#battery_level').text(valueString);
         log(valueString );
         if(checkautoscroll) scrollToBottom();
         }
-    }
     //Hiển thị văn bản
     function log(text) {
             const now = new Date();
@@ -252,11 +244,11 @@
     
     gattCharacteristic.writeValue(data)
     .then(() => {
-        log("Data sent successfully.");
+        log("You-> Data sent successfully \n");
         console.log("Data sent successfully.");
     })
     .catch(error => {
-        log("Error sending data: " + error);
+        log("You-> Error sending data: " + error +"\n");
         console.log("Error sending data: " + error);
     });
     }
