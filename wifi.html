@@ -188,10 +188,6 @@
         let i=0;
         // Khởi tạo một mảng để chứa dữ liệu từ mảng uint8_t
         let dataArray = new Uint8Array(data.buffer);
-        let kytu=String.fromCharCode(dataArray[0]);
-        if(kytu=="1" || kytu=="2"){
-            i=1;
-        }
         // Khởi tạo chuỗi để chứa dữ liệu từ mảng uint8_t
         let valueString = '';
 
@@ -239,14 +235,6 @@
     }
     function log1(text){
         const navbarTitle = document.getElementById('navbarTitle');
-        navbarTitle.textContent = text;
-    }
-    function logValue1(text){
-        const navbarTitle = document.getElementById('Value1');
-        navbarTitle.textContent = text;
-    }
-    function logValue2(text){
-        const navbarTitle = document.getElementById('Value2');
         navbarTitle.textContent = text;
     }
     function ConnectWifi() {
