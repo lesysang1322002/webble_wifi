@@ -77,27 +77,44 @@ void InitBLE() {
   // Start advertising
   pServer->getAdvertising()->start();
 }
+//template <typename T>
+void BLE_print(const String &myVar) {
+  uint8_t data[myVar.length()];
+  for (size_t i = 0; i < myVar.length(); i++) {
+    data[i] = static_cast<uint8_t>(myVar.charAt(i));
+  }
+  BatteryLevelCharacteristic.setValue(data, myVar.length());
+  BatteryLevelCharacteristic.notify();
+  Serial.print(myVar);
+}
 void setup() {
   Serial.begin(115200);
-  pinMode(13,OUTPUT);
+  pinMode(2,OUTPUT);
   InitBLE();
-  Serial.println("BLE");
-  Serial.print("Connecting...");
+  BLE_print("BLE\n");
+  BLE_print("Connecting...");
   WiFi.mode(WIFI_STA);
   WiFi.begin(input1,input2);
   while(WiFi.status() != WL_CONNECTED){
+  Serial.print(".");
   receiData(input1,input2);
   WiFi.begin(input1,input2);
   delay(1000);
-  Serial.print(".");
   }
-  Serial.println("Connected to " + input1 );
+  BLE_print("Connected to " + input1 +"\n");
+  BLE_print("IP address: ");
+  // Lấy địa chỉ IP
+  IPAddress localIP = WiFi.localIP();
+
+  // Chuyển đổi địa chỉ IP thành chuỗi
+  String strIP = localIP.toString();
+  BLE_print(strIP);
 }
 
 void loop() {
- digitalWrite(13,HIGH);
+ digitalWrite(2,HIGH);
  delay(500);
- digitalWrite(13,LOW);
+ digitalWrite(2,LOW);
  delay(500);
 }
 void receiData(String& input1, String& input2){
@@ -117,3 +134,4 @@ void receiData(String& input1, String& input2){
     input2 = "";
     }
   }
+  
